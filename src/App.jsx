@@ -1,20 +1,41 @@
-import { Button, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  Box,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+} from '@mui/material';
+import { createBrowserRouter, Link, RouterProvider } from 'react-router';
+
+import Dashboard from './components/pages/Dashboard';
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Roboto", "sans-serif"].join(","),
+    fontFamily: ['Roboto', 'sans-serif'].join(','),
   },
 });
 
-const Home = () => {
-  return <Button variant="contained">Hello, ini tombol MUI</Button>;
-};
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Dashboard />,
+  },
+  {
+    path: '/login',
+    element: (
+      <Box>
+        <Typography variant="h1">Login</Typography>
+        <Link to={'/'}>Kembali ke Home</Link>
+      </Box>
+    ),
+  },
+]);
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Home />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 };
