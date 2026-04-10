@@ -4,7 +4,11 @@ import { grey } from '@mui/material/colors';
 
 import Dropdown from '../../../ui/Dropdown';
 
+import session from '@/utils/session';
+import { useNavigate } from 'react-router';
+
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -31,7 +35,8 @@ const Navbar = () => {
             {
               label: 'Logout',
               onClick() {
-                console.log('handle logout');
+                session.clearSession();
+                navigate('/login');
               },
             },
           ]}
