@@ -19,9 +19,7 @@ const DetailProjectContainer = () => {
           label: detailProjectData.title,
         },
       ]}
-    >
-      
-    </SidebarLayout>
+    ></SidebarLayout>
   );
 };
 
