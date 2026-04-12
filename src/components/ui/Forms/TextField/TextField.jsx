@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -15,8 +16,8 @@ const TextField = ({
   label,
   defaultValue,
   helperText,
-  secureText = false,
   id,
+  secureText = false,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,19 +41,18 @@ const TextField = ({
               marginBottom: 2,
             }}
             variant="outlined"
+            {...props}
           >
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <OutlinedInput
               {...props}
-              id={id}
-              type={showPassword ? 'password' : 'text'}
               fullWidth
+              type={showPassword ? 'password' : 'text'}
               label={label}
               variant="outlined"
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              helperText={error?.message ? error?.message : helperText}
               error={Boolean(error)}
               endAdornment={
                 secureText ? (
@@ -69,6 +69,9 @@ const TextField = ({
                 )
               }
             />
+            <FormHelperText error={Boolean(error)}>
+              {error?.message ? error?.message : helperText}
+            </FormHelperText>
           </FormControl>
         );
       }}
