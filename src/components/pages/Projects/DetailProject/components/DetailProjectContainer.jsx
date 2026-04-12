@@ -1,42 +1,48 @@
-import { Stack } from '@mui/material';
-import { useLoaderData } from 'react-router';
-
-import useDetailProjectContext from '../hooks/useDetailProjectContext';
-
-import CreateNewList from './CreateNewList';
-
+import { Tab } from '@mui/material';
 import SidebarLayout from '@/components/layouts/SidebarLayout';
+import useDetailProjectContainer from '../hooks/useDetailProjectContainer';
+import ModalTaskDetail from '../../Modals/ModalTaskDetail';
+import ModalEditProject from '../../Modals/ModalEditProject';
+import { TabContext, TabList } from '@mui/lab';
+import { useState } from 'react';
+import Dashboard from './Dashboard';
+import ProjectBoardPanel from './ProjectBoardPanel';
 
 const DetailProjectContainer = () => {
-  const detailProjectData = useLoaderData();
-  const detailProjectContext = useDetailProjectContext();
+  const [activeTab, setActiveTab] = useState(2);
+
+  const handleChangeTab = (_, newValue) => {
+    setActiveTab(newValue);
+  };
+
+  const { detailProjectData, detailProjectContext } =
+    useDetailProjectContainer();
+
   return (
-    <SidebarLayout
-      pageTitle={`${detailProjectData.title} (${detailProjectContext.getProjectInitials})`}
-      breadcrumbs={[
-        {
-          label: 'Daftar Proyek',
-          href: '/projects',
-        },
-        {
-          label: detailProjectData.title,
-        },
-      ]}
-    >
-      <Stack
-        sx={{
-          height: 800,
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          direction: 'row',
-          gap: 2,
-          overflowX: 'auto',
-          pb: 5,
-        }}
+    <>
+      <SidebarLayout
+        pageTitle={`${detailProjectData.title} (${detailProjectContext.getProjectInitials})`}
+        breadcrumbs={[
+          {
+            label: 'Daftar Proyek',
+            href: '/projects',
+          },
+          {
+            label: detailProjectData.title,
+          },
+        ]}
       >
-        <CreateNewList />
-      </Stack>
-    </SidebarLayout>
+        <TabContext value={activeTab}>
+          <TabList onChange={handleChangeTab}>
+            <Tab label="Dashboard" value={1} />
+            <Tab label="Project" value={2} />
+          </TabList>
+          {activeTab === 1 ? <Dashboard /> : <ProjectBoardPanel value={2} />}
+        </TabContext>
+      </SidebarLayout>
+      <ModalTaskDetail />
+      <ModalEditProject />
+    </>
   );
 };
 
