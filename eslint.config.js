@@ -22,7 +22,7 @@ export default defineConfig([
   //
   js.configs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    // files: ['**/*.{js,jsx}'],
     plugins: {
       react: pluginReact,
       'react-hooks': pluginReactHooks,
