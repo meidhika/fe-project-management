@@ -2,13 +2,13 @@ import { AccountCircle } from '@mui/icons-material';
 import { Box, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-import Dropdown from '../../../ui/Dropdown';
-
 import session from '@/utils/session';
 import { useNavigate } from 'react-router';
+import Dropdown from '@/components/ui/Dropdown';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const sessionData = session.getSession();
   return (
     <Box
       sx={{
@@ -27,7 +27,7 @@ const Navbar = () => {
           icon={<AccountCircle />}
           options={[
             {
-              label: 'Profile',
+              label: sessionData?.user?.name,
               onClick() {
                 console.log('handle navigate to profile');
               },
